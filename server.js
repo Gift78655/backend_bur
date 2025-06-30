@@ -76,14 +76,14 @@ if (process.env.DEPLOYMENT_ENVIRONMENT === 'production') {
   });
 }
 
-// Make shared modules available to all routes via app.locals
+// Share across routes
 app.locals.db = db;
 app.locals.transporter = transporter;
 app.locals.sendEmail = sendEmail;
 app.locals.generateApplicationEmail = generateApplicationEmail;
 app.locals.generateWithdrawalEmail = generateWithdrawalEmail;
 
-// ✅ Route Modules
+// ✅ Modular Routes
 app.use('/api', require('./routes/auth'));
 app.use('/api/students', require('./routes/students'));
 app.use('/api/admins', require('./routes/admins'));
@@ -93,11 +93,11 @@ app.use('/api/documents', require('./routes/documents'));
 app.use('/api/messages', require('./routes/messages'));
 app.use('/api/conversations', require('./routes/conversations'));
 
-// 🔍 Sanity check
+// 🧪 Sanity check
 app.get('/', (req, res) => {
   res.send('✅ Bursary API is running');
 });
 
-// 🚀 Start Server
+// 🚀 Launch server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
