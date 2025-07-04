@@ -101,11 +101,9 @@ app.get('/', (req, res) => {
   res.send('✅ Bursary API is running');
 });
 
-// 🚀 Launch server
-const PORT = process.env.PORT || 5000;
-app.use((req, res, next) => {
-  console.warn('Unhandled path:', req.path);
-  next();
-});
+// 🚀 Launch server (Render requires 0.0.0.0 for Docker)
+const PORT = process.env.PORT || 10000;
 
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
+});
