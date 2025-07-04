@@ -9,8 +9,6 @@ const mysql = require('mysql2');
 const log = (...args) => console.log('[DEBUG]', ...args);
 console.log("🚀 Running backend_bur from:", __filename);
 
-
-
 // Load environment variables
 dotenv.config();
 
@@ -19,7 +17,17 @@ const { generateApplicationEmail, generateWithdrawalEmail } = require('./emailNo
 
 // Express app setup
 const app = express();
-app.use(cors());
+
+const allowedOrigins = [
+  'https://bursary-frontend.onrender.com',
+  'http://localhost:3000'
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -41,6 +49,7 @@ const transporter = nodemailer.createTransport({
     pass: process.env.MAIL_PASS,
   },
 });
+
 const sendEmail = async (to, subject, html) => {
   await transporter.sendMail({
     from: `"Bursary Portal" <${process.env.MAIL_USER}>`,
