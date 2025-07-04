@@ -103,4 +103,9 @@ app.get('/', (req, res) => {
 
 // 🚀 Launch server
 const PORT = process.env.PORT || 5000;
+app.use((req, res, next) => {
+  console.warn('Unhandled path:', req.path);
+  next();
+});
+
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
