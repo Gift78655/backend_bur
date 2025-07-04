@@ -8,6 +8,8 @@ const nodemailer = require('nodemailer');
 const mysql = require('mysql2');
 const log = (...args) => console.log('[DEBUG]', ...args);
 
+
+
 // Load environment variables
 dotenv.config();
 
