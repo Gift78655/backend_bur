@@ -7,6 +7,7 @@ const dotenv = require('dotenv');
 const nodemailer = require('nodemailer');
 const mysql = require('mysql2');
 const log = (...args) => console.log('[DEBUG]', ...args);
+console.log("🚀 Running backend_bur from:", __filename);
 
 
 
