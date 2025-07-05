@@ -23,10 +23,15 @@ const allowedOrigins = [
   'http://localhost:3000'
 ];
 
-app.use(cors({
+const corsOptions = {
   origin: allowedOrigins,
   credentials: true,
-}));
+};
+
+app.use(cors(corsOptions));
+
+// ✅ Fix for preflight CORS
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -116,3 +121,4 @@ const PORT = process.env.PORT || 10000;
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on http://0.0.0.0:${PORT}`);
 });
+
