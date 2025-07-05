@@ -24,7 +24,7 @@ const allowedOrigins = [
   'http://localhost:3000'
 ];
 
-const corsOptions = {
+app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
@@ -33,10 +33,10 @@ const corsOptions = {
     }
   },
   credentials: true,
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // 🔁 Preflight support for all routes
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+}));
 
 // ✅ Middleware
 app.use(express.json());
